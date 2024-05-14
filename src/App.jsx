@@ -1,39 +1,24 @@
-import { useState } from 'react'
 import { Header } from './components/Header'
 import { Guitar } from './components/Guitar'
-import { db } from './data/db'
+import { useCart } from './hooks/useCart'
 
 function App() {
 
-  const [data, setData] = useState(db);
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (item) => {
-
-    const itemExist = cart.findIndex((guitar) => guitar.id === item.id);
-
-    if (itemExist >= 0) {
-
-      console.log('Ya existe...');
-      const updaetdCart = [...cart];
-      updaetdCart[itemExist].quantity++;
-      setCart(updaetdCart);
-
-    } else {
-
-      item.quantity = 1;
-      setCart([...cart, item]);
-
-    }
+  const { data, cart, addToCart, removeFromCart, decreaseQuantity, increaseQuantity, clearCart, isEmpty, cartTotal } = useCart();
 
 
-  }
 
   return (
 
     <>
       <Header
         cart={cart}
+        removeFromCart={removeFromCart}
+        increaseQuantity={increaseQuantity}
+        decreaseQuantity={decreaseQuantity}
+        clearCart={clearCart}
+        isEmpty={isEmpty}
+        cartTotal={cartTotal}
       />
 
 
@@ -46,7 +31,6 @@ function App() {
             <Guitar
               key={guitar.id}
               guitar={guitar}
-              setCart={setCart}
               addToCart={addToCart}
             />
           ))}
