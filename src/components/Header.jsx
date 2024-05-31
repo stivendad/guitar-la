@@ -1,4 +1,3 @@
-import { useCart } from "../hooks/useCart"
 
 export const Header = ({ cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart, isEmpty, cartTotal }) => {
 
